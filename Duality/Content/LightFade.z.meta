@@ -1,0 +1,15 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "LightFade",
+		uint64 ResourceId = 568e8beaa768954d,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"carepackage",
+		],
+	},
+},

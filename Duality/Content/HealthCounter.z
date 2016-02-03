@@ -1,0 +1,35 @@
+class HealthCounter : ZilchComponent
+{
+    [Property]
+    var Life : Integer = 10;
+    var Text : String = "Life ~ 10";
+    var Timer : Real = 0;
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        this.Timer += event.Dt;
+        
+        var temp = "Life ~ `this.Life`";
+        this.Owner.SpriteText.Text = temp;
+        if(this.Life < 0)
+        {
+            this.Life = 0;
+        }
+        
+        //This part counts health Regeneration.
+        if (this.Life <= 10 && this.Timer >= 7)
+        {
+            this.Life += 1;
+            this.Timer = 0;
+        }
+        if (this.Life >= 10)
+        {
+            this.Life = 10;
+        }
+    }
+}

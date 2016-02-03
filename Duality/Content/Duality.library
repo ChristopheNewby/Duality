@@ -1,0 +1,7 @@
+ContentLibrary = 
+{
+	string Name = "Duality",
+	uint64 LibraryId = 56a59837171107a3,
+	string SourceControlType = "",
+	bool ReadOnly = false,
+},

@@ -1,0 +1,16 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "ShootEm",
+		uint64 ResourceId = 5613a621e833dab9,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"Package",
+			"carepackage",
+		],
+	},
+},

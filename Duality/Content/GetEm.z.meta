@@ -1,0 +1,15 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "GetEm",
+		uint64 ResourceId = 56b00bdaac440f29,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"carepackage",
+		],
+	},
+},

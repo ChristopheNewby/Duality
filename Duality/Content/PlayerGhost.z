@@ -1,0 +1,52 @@
+class PlayerGhost : ZilchComponent
+{
+    var Timer : Real = 0;
+    var PreviousY : Real = 0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+        Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        this.Timer += event.Dt;
+        var newY = this.Owner.Transform.Translation.Y;
+        if(this.PreviousY - newY < 0)
+        {
+            var temp = this.Owner.Transform.Translation;
+            this.Owner.Transform.Translation = Real3(temp.X, temp.Y, -1);
+        }else
+        {
+            var temp = this.Owner.Transform.Translation;
+            this.Owner.Transform.Translation = Real3(temp.X, temp.Y, 0);
+        }
+        this.PreviousY = newY;
+    }
+    function OnCollisionStarted(event : CollisionEvent)
+    {
+        if(event.OtherObject.Name != "Platform")
+        {
+            var temp = this.Owner.Transform.Translation;
+            this.Owner.Transform.Translation = Real3(temp.X, temp.Y, 0);
+        }
+    }
+    
+    function OnKeyDown(event : KeyboardEvent)
+    {
+        if (event.Key == Keys.S)
+        {
+            this.Timer = 0;
+            var temp = this.Owner.Transform.Translation;
+            temp.Z -= 5;
+            this.Owner.Transform.Translation = temp;
+        }else 
+        if (this.Timer >= 5)
+        {
+            var temp = this.Owner.Transform.Translation;
+            temp.Z += 5;
+            this.Owner.Transform.Translation = temp;
+        }
+    }
+}

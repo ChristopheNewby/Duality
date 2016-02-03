@@ -1,0 +1,15 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "FindIt",
+		uint64 ResourceId = 56b03507f2565835,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"carepackage",
+		],
+	},
+},

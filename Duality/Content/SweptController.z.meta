@@ -1,0 +1,16 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "SweptController",
+		uint64 ResourceId = 569d34a2ade57575,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"Package9002",
+			"carepackage",
+		],
+	},
+},

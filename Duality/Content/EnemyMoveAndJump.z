@@ -1,0 +1,127 @@
+class EnemyMoveAndJump : ZilchComponent
+{
+    [Property]
+    var Alive : Boolean = false;
+    var Touch : Boolean = false;
+    [Property]
+    var GoHam : Boolean = false;
+    
+    [Property]
+    var Speed : Real = 0.05;
+    var PlayerPosition : Real3 = Real3();
+    var EnemyPosition : Real3 = Real3();
+    
+    [Property]
+    var TargetObject : CogPath = null;
+    [Property]
+    var ChaseSpeed : Real = 3.0;
+    [Property]
+    var ChaseTriggerDistance : Real = 0.5;
+    var DistanceFromTarget : Real = 0.0;
+    var ChaseDirection : Real3 = Real3();
+    var TargetIsWithinRange : Boolean = false;
+    
+    [Property]
+    var PaceSpeed : Real = 0;
+    [Property]
+    var MaxMoveDistance : Real = 10.0;
+    var PaceDirection : Real3 = Real3(5.0, 0.0, 0.0);
+    var StartPosition : Real3 = Real3();
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+        Zero.Connect(this.Owner, Events.CollisionEnded, this.OnCollisionEnded);
+        this.StartPosition = this.Owner.Transform.Translation;
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        var playerGrounded = this.Space.FindObjectByName("Player").SweptController.Grounded;
+        var movement = Real3(0, 0, 0);
+        this.PlayerPosition = this.Space.FindObjectByName("Player").Transform.Translation;
+        this.EnemyPosition = this.Owner.Transform.Translation;
+        
+        if (this.PlayerPosition.Y >= this.EnemyPosition.Y && this.DistanceFromTarget <= this.ChaseTriggerDistance && this.Touch == false && this.GoHam == true)
+        {
+            this.Owner.SweptController.Jump();
+        }
+        this.Owner.SweptController.Update(movement, event.Dt);
+        
+        if (this.PlayerPosition.X <= this.EnemyPosition.X && this.DistanceFromTarget <= this.ChaseTriggerDistance && this.Touch == false && this.GoHam == true)
+        {
+            this.EnemyPosition = this.Owner.Transform.Translation;
+            this.EnemyPosition.X -= this.Speed;
+            this.Owner.Transform.Translation = this.EnemyPosition;
+        }
+        if (this.PlayerPosition.X >= this.EnemyPosition.X && this.DistanceFromTarget <= this.ChaseTriggerDistance && this.Touch == false && this.GoHam == true)
+        {
+            this.EnemyPosition = this.Owner.Transform.Translation;
+            this.EnemyPosition.X += this.Speed;
+            this.Owner.Transform.Translation = this.EnemyPosition;
+        }
+        
+        //*******************************************************************************
+        
+        this.TargetIsWithinRange = false;
+        if (this.TargetObject.Cog != null)
+        {
+            this.CalculateChaseDirectionAndDistance();
+            this.TargetIsWithinRange = (this.DistanceFromTarget <= this.ChaseTriggerDistance);
+            
+            if (this.TargetIsWithinRange)
+            {
+                this.ChaseTarget(event);
+            }
+            else
+            {
+                this.PaceBackAndForth(event);
+            }
+        }
+        else
+        {
+            this.PaceBackAndForth(event);
+        }
+    }
+    function PaceBackAndForth(event : UpdateEvent)
+    {
+        var displacement = this.Owner.Transform.Translation - this.StartPosition;
+        var distanceFromStart = Math.Length(displacement);
+        
+        if (distanceFromStart >= this.MaxMoveDistance)
+        {
+            this.PaceDirection = -displacement;
+        }
+        this.PaceDirection = Math.Normalize(this.PaceDirection);
+        this.Owner.Transform.Translation += this.PaceDirection * event.Dt * this.PaceSpeed;
+    }
+    function CalculateChaseDirectionAndDistance()
+    {
+        this.ChaseDirection = this.TargetObject.Cog.Transform.Translation - this.Owner.Transform.Translation;
+        this.DistanceFromTarget = Math.Length(this.ChaseDirection);
+        this.ChaseDirection = Math.Normalize(this.ChaseDirection);
+    }
+    function ChaseTarget(event : UpdateEvent)
+    {
+        this.Owner.Transform.Translation += this.ChaseDirection * event.Dt * this.ChaseSpeed;
+    }
+    
+    //************************************************************************************
+    
+    function OnCollisionStarted(event : CollisionEvent)
+    {
+        if (event.OtherObject.Name == "Player")
+        {
+            this.Touch = true;
+        }
+    }
+    function OnCollisionEnded(event : CollisionEvent)
+    {
+        if (event.OtherObject.Name == "Player")
+        {
+            this.Touch = false;
+        }
+    }
+}
+

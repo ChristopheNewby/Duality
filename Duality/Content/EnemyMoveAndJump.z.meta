@@ -1,0 +1,16 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "EnemyMoveAndJump",
+		uint64 ResourceId = 56993652411fe3ac,
+	},
+	ContentTags = 
+	{
+		Array Tags = 
+		[
+			"Package9002",
+			"carepackage",
+		],
+	},
+},

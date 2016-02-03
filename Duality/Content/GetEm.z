@@ -1,0 +1,29 @@
+class GetEm : ZilchComponent
+{
+    var PlayerPos : Real3 = Real3();
+    var OwnerPos : Real3 = Real3();
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        this.PlayerPos = this.Space.FindObjectByName("Player").Transform.Translation;
+        this.OwnerPos = this.Owner.Transform.Translation;
+        var allPlatforms = this.Space.FindAllObjectsByName("Platform");
+        
+        
+        
+        /*if()
+        {
+            this.Owner.SweptController.Jump();
+            
+            while(allPlatforms.IsNotEmpty)
+        {
+            allPlatforms.MoveNext();
+        }
+        }*/
+    }
+}
