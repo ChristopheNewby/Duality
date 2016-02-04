@@ -1,6 +1,5 @@
 class SweptMove : ZilchComponent
 {
-    var Timer: Real = 0.0;
     
     function Initialize(init : CogInitializer)
     {
@@ -9,25 +8,13 @@ class SweptMove : ZilchComponent
 
     function OnLogicUpdate(event : UpdateEvent)
     {
-        this.Timer += event.Dt;
         
         var movement = Real3(0, 0, 0);
-        if (Zero.Keyboard.KeyIsPressed(Keys.Space))
+        if (Zero.Keyboard.KeyIsDown(Keys.Space))
         {
             this.Owner.SweptController.Jump();
         }  
         this.Owner.SweptController.Update(movement, event.Dt);
-        
-        if (this.Owner.SweptController.Jumping == true)
-        {
-            this.Timer = 0;
-        }
-        
-        if (this.Timer >= 2.5)
-        {
-            this.Space.FindObjectByName("Wraith").EnemyMoveAndJump.GoHam = true;
-            this.Space.FindObjectByName("Sunny").EnemyMoveAndJump.GoHam = true;
-        }
         
     }
 }
