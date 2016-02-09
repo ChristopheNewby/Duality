@@ -1,0 +1,36 @@
+class PauseGame : ZilchComponent
+{
+    var Count : Integer = 0;
+    
+    function Initialize(init : CogInitializer)
+    {
+        //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(Zero.Keyboard, Events.KeyDown, this.OnKeyDown);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+    }
+    
+    function OnKeyDown(event : KeyboardEvent)
+    {
+        if (event.Key == Keys.P)
+        {
+            this.Space.TimeSpace.TogglePause();
+            this.Count += 1;
+            
+            if (this.Count == 1)
+            {
+                this.Space.FindObjectByName("PauseScreen").Sprite.Visible = true;
+                this.Space.FindObjectByName("Pause").SpriteText.Visible = true;
+            }
+            
+            if (this.Count == 2)
+            {
+                this.Space.FindObjectByName("PauseScreen").Sprite.Visible = false;
+                this.Space.FindObjectByName("Pause").SpriteText.Visible = false;
+                this.Count = 0;
+            }
+        }
+    }
+}

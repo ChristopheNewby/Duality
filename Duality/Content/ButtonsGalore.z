@@ -1,0 +1,65 @@
+class ButtonsGalore : ZilchComponent
+{
+    var Level1: Level = Level.Find("Level1");
+    var Controls : Level = Level.Find("Controls");
+    var Credits : Level = Level.Find("Credits");
+    
+    function Initialize(init : CogInitializer)
+    {
+        //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Owner, Events.MouseEnter, this.OnMouseEnter);
+        Zero.Connect(this.Owner, Events.MouseExit, this.OnMouseExit);
+        Zero.Connect(this.Owner, Events.MouseDown, this.OnMouseDown);
+        Zero.Connect(this.Owner, Events.MouseUp, this.OnMouseUp);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        
+    }
+    
+    function OnMouseEnter(event : ViewportMouseEvent)
+    {
+        var itemColor = this.Owner.SpriteText.Color;
+        itemColor.W = 1;
+        this.Owner.SpriteText.Color = itemColor; 
+    }
+    
+    function OnMouseExit(event : ViewportMouseEvent)
+    {
+        var itemColor = this.Owner.SpriteText.Color;
+        itemColor.W = 0.5;
+        this.Owner.SpriteText.Color = itemColor; 
+    }
+    
+    function OnMouseDown(event : ViewportMouseEvent)
+    {
+        if (this.Owner.Name == "Play")
+        {
+            var space = this.LoadLevel(this.Level1);
+        }
+        
+        if (this.Owner.Name == "Controls")
+        {
+            var space = this.LoadLevel(this.Controls);
+        }
+        
+        if (this.Owner.Name == "Credits")
+        {
+            var space = this.LoadLevel(this.Credits);
+        }
+    }
+    
+    function OnMouseUp(event : ViewportMouseEvent)
+    {
+        //this.Owner.Destroy();
+    }
+    
+    function LoadLevel(level : Level) : Space
+    {
+        var space = this.GameSession.CreateSpace(Archetype.Find("Space"));
+        space.LoadLevel(level);
+        this.Space.Destroy();
+        return space;
+    }
+}

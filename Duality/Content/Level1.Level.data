@@ -16,7 +16,7 @@ Level =
 			bool WakeUpOnChange = false,
 			bool LocalSpaceDirection = true,
 			float Strength = 10,
-			Vec3 Direction = [0, -1, 0],
+			Vec3 Direction = [1, 0, 0],
 		},
 		DragEffect = 
 		{
@@ -103,7 +103,7 @@ Level =
 		},
 		Transform = 
 		{
-			Vec3 Translation = [26.934227, -0.705924988, 50],
+			Vec3 Translation = [26.7610226, -0.840963244, 50],
 			Vec3 Scale = [1, 1, 1],
 			Quat Rotation = [-0, -1.09278471e-008, 0, 1],
 		},
@@ -115,7 +115,7 @@ Level =
 			float FieldOfView = 45,
 			float NearPlane = 0.5,
 			float FarPlane = 500,
-			float Size = 4.50492907,
+			float Size = 7.4273715,
 		},
 		EditorCameraController = 
 		{
@@ -123,7 +123,7 @@ Level =
 			float LookDistance = 50,
 			float VerticalAngle = 0,
 			float HorizontalAngle = 0,
-			Vec3 LookTarget = [26.934227, -0.705924988, 1.17734385e-006],
+			Vec3 LookTarget = [26.7610226, -0.840963244, 1.16976071e-006],
 			float MoveSensitivity = 1,
 		},
 		EditorRenderer = 
@@ -233,7 +233,7 @@ Level =
 	{
 		LinkId = 
 		{
-			uint Id = 6,
+			uint Id = 2,
 		},
 		Named = 
 		{
@@ -255,12 +255,15 @@ Level =
 			float FarPlane = 200,
 			float Size = 5,
 		},
+		CameraFollow = 
+		{
+		},
 	},
 	Cog = 
 	{
 		LinkId = 
 		{
-			uint Id = 7,
+			uint Id = 6,
 		},
 		Named = 
 		{
@@ -295,7 +298,7 @@ Level =
 	{
 		LinkId = 
 		{
-			uint Id = 8,
+			uint Id = 7,
 		},
 		Named = 
 		{
@@ -371,7 +374,7 @@ Level =
 	{
 		LinkId = 
 		{
-			uint Id = 9,
+			uint Id = 8,
 		},
 		Named = 
 		{
@@ -425,7 +428,7 @@ Level =
 		},
 		SweptController = 
 		{
-			Vec3 WorldUp = [0, 1, 0],
+			Vec3 WorldUp = [-1, 0, 0],
 			bool LockZAxis = false,
 			bool ForwardEvents = false,
 			float Gravity = 10,
@@ -452,6 +455,81 @@ Level =
 		Movement = 
 		{
 			float Speed = 0.0350000001,
+		},
+		PauseGame = 
+		{
+		},
+		Hierarchy = 
+		{
+			Cog = 
+			{
+				LinkId = 
+				{
+					uint Id = 9,
+				},
+				Named = 
+				{
+					string Name = "PauseScreen",
+				},
+				Transform = 
+				{
+					Vec3 Translation = [0, 0, 5],
+					Vec3 Scale = [25, 25, 1],
+					Quat Rotation = [0, 0, 0, 1],
+				},
+				Sprite = 
+				{
+					bool Visible = false,
+					bool VisibilityCulling = true,
+					bool VisibilityEvents = true,
+					bool CastShadows = false,
+					Vec4 Color = [0.670588434, 0.0705882311, 0.929411829, 0.100000001],
+					BlendMode BlendMode = Alpha,
+					SpriteGeometryMode GeometryMode = ZPlane,
+					string SpriteLayer = "52ad5fa30d7fcd50:DefaultSpriteLayer",
+					string SpriteSource = "5275aa4d802dd6dc:Square",
+					bool RenderMask = false,
+					bool FlipX = false,
+					bool FlipY = false,
+					bool AnimationActive = true,
+					float AnimationSpeed = 1,
+					uint StartFrame = 0,
+				},
+			},
+			Cog = 
+			{
+				LinkId = 
+				{
+					uint Id = 10,
+				},
+				Named = 
+				{
+					string Name = "Pause",
+				},
+				Transform = 
+				{
+					Vec3 Translation = [0, 2.41105795, 6],
+					Vec3 Scale = [2, 2, 2],
+					Quat Rotation = [0, 0, 0, 1],
+				},
+				SpriteText = 
+				{
+					bool Visible = false,
+					bool VisibilityCulling = true,
+					bool VisibilityEvents = true,
+					bool CastShadows = false,
+					Vec4 Color = [0.409999847, 0, 1, 1],
+					BlendMode BlendMode = Alpha,
+					SpriteGeometryMode GeometryMode = ZPlane,
+					string SpriteLayer = "52ad5fa30d7fcd50:DefaultSpriteLayer",
+					string FontName = "56adaf7fbf65d0e4:Munro",
+					uint FontSize = 30,
+					string Text = "Paused",
+					TextAlign Align = Center,
+					float PixelsPerUnit = 64,
+					bool Smoothing = true,
+				},
+			},
 		},
 	},
 },
